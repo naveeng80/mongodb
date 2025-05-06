@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mongo-stack.fullname" . }}-mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "mongo-stack.name" . }}-mongodb
+  template:
+    metadata:
+      labels:
+        app: {{ include "mongo-stack.name" . }}-mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "{{ .Values.mongodb.auth.username }}"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: "{{ .Values.mongodb.auth.password }}"
+            - name: MONGO_INITDB_DATABASE
+              value: "{{ .Values.mongodb.auth.database }}"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mongo-stack.fullname" . }}-mongodb
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ include "mongo-stack.name" . }}-mongodb
+  ports:
+    - port: 27017
+      targetPort: 27017

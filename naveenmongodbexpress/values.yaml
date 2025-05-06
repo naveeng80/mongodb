@@ -1,0 +1,20 @@
+mongoexpress:
+  image:
+    repository: mongo-express
+    tag: latest
+  service:
+    type: ClusterIP
+    port: 8081
+  mongodb:
+    host: mongodb
+    port: 27017
+    username: naveen
+    password: naveen
+    database: naveendb
+
+mongodb:
+  auth:
+    rootPassword: naveen
+    username: naveen
+    password: naveen
+    database: naveendb

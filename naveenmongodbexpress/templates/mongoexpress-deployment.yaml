@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mongo-stack.fullname" . }}-express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "mongo-stack.name" . }}-express
+  template:
+    metadata:
+      labels:
+        app: {{ include "mongo-stack.name" . }}-express
+    spec:
+      containers:
+        - name: mongo-express
+          image: "{{ .Values.mongoexpress.image.repository }}:{{ .Values.mongoexpress.image.tag }}"
+          ports:
+            - containerPort: 8081
+          env:
+            - name: ME_CONFIG_MONGODB_SERVER
+              value: "{{ .Values.mongoexpress.mongodb.host }}"
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              value: "{{ .Values.mongoexpress.mongodb.username }}"
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              value: "{{ .Values.mongoexpress.mongodb.password }}"
+            - name: ME_CONFIG_MONGODB_AUTH_DATABASE
+              value: "{{ .Values.mongoexpress.mongodb.database }}"
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mongo-stack.fullname" . }}-express
+spec:
+  type: {{ .Values.mongoexpress.service.type }}
+  selector:
+    app: {{ include "mongo-stack.name" . }}-express
+  ports:
+    - port: {{ .Values.mongoexpress.service.port }}
+      targetPort: 8081
