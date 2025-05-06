@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mongo-stack.fullname" . }}-mongodb
+  name: "{{ .Values.mongodb.deploymentname }}"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ include "mongo-stack.name" . }}-mongodb
+      app: "{{ .Values.mongodb.appname }}"
   template:
     metadata:
       labels:
-        app: {{ include "mongo-stack.name" . }}-mongodb
+        app: "{{ .Values.mongodb.appname }}"
     spec:
       containers:
         - name: mongodb
@@ -30,11 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "mongo-stack.fullname" . }}-mongodb
+  name: "{{ .Values.mongodb.servicename }}"
 spec:
   type: ClusterIP
   selector:
-    app: {{ include "mongo-stack.name" . }}-mongodb
+    app: "{{ .Values.mongodb.appname }}"
   ports:
     - port: 27017
       targetPort: 27017

@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mongo-stack.fullname" . }}-express
+  name: "{{ .Values.mongoexpressdeploymentname }}"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ include "mongo-stack.name" . }}-express
+      app: "{{ .Values.mongoexpress.appname }}"
   template:
     metadata:
       labels:
-        app: {{ include "mongo-stack.name" . }}-express
+        app: "{{ .Values.mongoexpress.appname }}"
     spec:
       containers:
         - name: mongo-express
@@ -33,11 +33,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "mongo-stack.fullname" . }}-express
+  name: "{{ .Values.mongoexpress.servicename }}"
 spec:
   type: {{ .Values.mongoexpress.service.type }}
   selector:
-    app: {{ include "mongo-stack.name" . }}-express
+    app: "{{ .Values.mongoexpress.appname }}"
   ports:
     - port: {{ .Values.mongoexpress.service.port }}
       targetPort: 8081

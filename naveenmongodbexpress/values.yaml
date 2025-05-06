@@ -1,4 +1,7 @@
 mongoexpress:
+  appname: navmongoexpress
+  deploymentname: navmongoexpdep
+  servicename: navmongoexpsvc
   image:
     repository: mongo-express
     tag: latest
@@ -13,8 +16,12 @@ mongoexpress:
     database: naveendb
 
 mongodb:
+  appname: navmongodb
+  deploymentname: navmongodbdep
+  servicename: navmongodbsvc
   auth:
     rootPassword: naveen
     username: naveen
     password: naveen
     database: naveendb
+  
