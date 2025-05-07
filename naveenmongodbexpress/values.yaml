@@ -15,11 +15,13 @@ mongodb:
   appname: navmongodb
   deploymentname: navmongodbdep
   servicename: navmongodbsvc
-  port: 27017
-  protocol: TCP
   image:
     repository: mongo
     tag: latest
+  service:
+    type: ClusterIP
+    port: 27017
+    protocol: TCP
   auth:
     rootPassword: naveen
     username: naveen

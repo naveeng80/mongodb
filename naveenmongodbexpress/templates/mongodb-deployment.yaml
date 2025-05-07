@@ -16,7 +16,7 @@ spec:
         - name: mongodb
           image: "{{ .Values.mongodb.image.repository }}:{{ .Values.mongodb.image.tag }}"
           ports:
-            - containerPort: {{ .Values.mongodb.port }}
+            - containerPort: {{ .Values.mongodb.service.port }}
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: {{ .Values.mongodb.auth.username }}
@@ -32,10 +32,10 @@ kind: Service
 metadata:
   name: {{ .Values.mongodb.servicename }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.mongodb.service.type }}
   selector:
     app: {{ .Values.mongodb.appname }}
   ports:
-    - protocol: {{ .Values.mongodb.protocol }}
-      port: {{ .Values.mongodb.port }}
-      targetPort: {{ .Values.mongodb.port }}
+    - protocol: {{ .Values.mongodb.service.protocol }}
+      port: {{ .Values.mongodb.service.port }}
+      targetPort: {{ .Values.mongodb.service.port }}
