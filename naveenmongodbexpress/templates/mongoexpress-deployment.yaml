@@ -26,10 +26,11 @@ spec:
               value: "{{ .Values.mongoexpress.mongodb.password }}"
             - name: ME_CONFIG_MONGODB_AUTH_DATABASE
               value: "admin"  # Crucial if user was created in admin DB
-
+            - name: ME_CONFIG_BASICAUTH_USERNAME
+              value: "{{ .Values.mongoexpress.mongodb.username }}" 
+            - name: ME_CONFIG_BASICAUTH_PASSWORD
+              value: "{{ .Values.mongoexpress.mongodb.password }}"
 ---
-
-
 apiVersion: v1
 kind: Service
 metadata:
