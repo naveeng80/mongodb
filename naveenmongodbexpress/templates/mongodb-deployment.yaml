@@ -22,6 +22,8 @@ spec:
               value: "{{ .Values.mongodb.auth.username }}"
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: "{{ .Values.mongodb.auth.password }}"
+            - name: ME_CONFIG_MONGODB_SERVER
+              value: "{{ .Values.mongodb.servicename }}"
 
 ---
 

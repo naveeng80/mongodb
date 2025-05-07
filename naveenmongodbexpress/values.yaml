@@ -9,16 +9,15 @@ mongoexpress:
     type: ClusterIP
     port: 8081
   mongodb:
-    host: mongo
+    host: navmongodbsvc
     port: 27017
     username: naveen
     password: naveen
-    database: naveendb
 
 mongodb:
   appname: navmongodb
   deploymentname: navmongodbdep
-  servicename: mongo
+  servicename: navmongodbsvc
   image:
     repository: mongo
     tag: latest
@@ -26,5 +25,4 @@ mongodb:
     rootPassword: naveen
     username: naveen
     password: naveen
-    database: naveendb
   
