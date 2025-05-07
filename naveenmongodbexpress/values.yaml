@@ -19,6 +19,9 @@ mongodb:
   appname: navmongodb
   deploymentname: navmongodbdep
   servicename: navmongodbsvc
+  image:
+    repository: mongo
+    tag: latest
   auth:
     rootPassword: naveen
     username: naveen

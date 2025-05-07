@@ -39,5 +39,7 @@ spec:
   selector:
     app: {{ .Values.mongoexpress.appname }}
   ports:
-    - port: {{ .Values.mongoexpress.service.port }}
+    - protocol: TCP
+      port: 8081
       targetPort: 8081
+  type: ClusterIP
