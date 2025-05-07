@@ -16,14 +16,14 @@ spec:
         - name: mongodb
           image: "{{ .Values.mongodb.image.repository }}:{{ .Values.mongodb.image.tag }}"
           ports:
-            - containerPort: 27017
+            - containerPort: {{ .Values.mongodb.port }}
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
-              value: "{{ .Values.mongodb.auth.username }}"
+              value: {{ .Values.mongodb.auth.username }}
             - name: MONGO_INITDB_ROOT_PASSWORD
-              value: "{{ .Values.mongodb.auth.password }}"
+              value: {{ .Values.mongodb.auth.password }}
             - name: ME_CONFIG_MONGODB_SERVER
-              value: "{{ .Values.mongodb.servicename }}"
+              value: {{ .Values.mongodb.servicename }}
 
 ---
 
@@ -36,6 +36,6 @@ spec:
   selector:
     app: {{ .Values.mongodb.appname }}
   ports:
-    - protocol: TCP
-      port: 27017
-      targetPort: 27017
+    - protocol: {{ .Values.mongodb.protocol }}
+      port: {{ .Values.mongodb.port }}
+      targetPort: {{ .Values.mongodb.port }}

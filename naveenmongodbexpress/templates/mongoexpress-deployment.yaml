@@ -16,20 +16,20 @@ spec:
         - name: mongo-express
           image: "{{ .Values.mongoexpress.image.repository }}:{{ .Values.mongoexpress.image.tag }}"
           ports:
-            - containerPort: 8081
+            - containerPort: {{ .Values.mongoexpress.service.port }}
           env:
             - name: ME_CONFIG_MONGODB_SERVER
-              value: "{{ .Values.mongoexpress.mongodb.host }}"
+              value: {{ .Values.mongodb.servicename }}
             - name: ME_CONFIG_MONGODB_ADMINUSERNAME
-              value: "{{ .Values.mongoexpress.mongodb.username }}"
+              value: {{ .Values.mongodb.auth.username }}
             - name: ME_CONFIG_MONGODB_ADMINPASSWORD
-              value: "{{ .Values.mongoexpress.mongodb.password }}"
+              value: {{ .Values.mongodb.auth.password }}
             - name: ME_CONFIG_MONGODB_AUTH_DATABASE
               value: "admin"  # Crucial if user was created in admin DB
             - name: ME_CONFIG_BASICAUTH_USERNAME
-              value: "{{ .Values.mongoexpress.mongodb.username }}" 
+              value: {{ .Values.mongodb.auth.username }}
             - name: ME_CONFIG_BASICAUTH_PASSWORD
-              value: "{{ .Values.mongoexpress.mongodb.password }}"
+              value: {{ .Values.mongodb.auth.password }}
 ---
 apiVersion: v1
 kind: Service
@@ -40,7 +40,7 @@ spec:
   selector:
     app: {{ .Values.mongoexpress.appname }}
   ports:
-    - protocol: TCP
-      port: 8081
-      targetPort: 8081
+    - protocol: {{ .Values.mongoexpress.service.protocol }}
+      port: {{ .Values.mongoexpress.service.port }}
+      targetPort: {{ .Values.mongoexpress.service.port }}
   type: ClusterIP
