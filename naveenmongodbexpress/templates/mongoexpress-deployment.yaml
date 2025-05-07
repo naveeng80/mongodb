@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.mongoexpressdeploymentname }}
+  name: {{ .Values.mongoexpress.deploymentname }}
 spec:
   replicas: 1
   selector:
